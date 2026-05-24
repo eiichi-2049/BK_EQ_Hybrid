@@ -78,7 +78,12 @@ BKEQ_Hybrid 并不想成为"最透明"的 EQ。相反，它更像是一种：
 
 本项目仅供学习交流使用，请勿用于商业用途。
 
-用到的字体文件（有修改）：[Protest](https://www.dafont.com/protest.font)
+用到的字体文件（有修改）：
+
+[Protest](https://www.dafont.com/protest.font)
+
+Matisse Pro EB
+
 
 ---
 
