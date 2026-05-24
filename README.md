@@ -17,12 +17,12 @@ Built for Tone, Not Perfection
 
 现在向你介绍全新均衡器 — **BK_EQ_Hybrid**
 
-BKEQ_Hybrid 的灵感，来自我最喜欢的**两架传奇硬件 EQ**：
+BKEQ_Hybrid 的灵感，来自我最喜欢的**两架传奇硬件**：
 
 | 风格 | 特点 |
 |:------:|:------:|
 |  **Pultec Passive EQ 1A** | 大线条，大范围的调整带来的温暖、厚实 |
-|  **SSL 4000 Series Channel Strip EQ** | 直接、干净、带"推感"的总线塑形能力 |
+|  **SSL 4000 E Series Channel Strip** | 直接、干净、带"推感"的总线塑形能力 |
 
 我一直很喜欢老硬件身上的一种特质：**它们并不"绝对精准"，但却能让声音变得好听。**
 
