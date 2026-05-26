@@ -2,7 +2,7 @@
  </i></p>
 </p>
 
-<img width="1280" height="800" alt="HEAD PICTURE" src="https://github.com/user-attachments/assets/59efd481-9e0d-4fea-a91c-e4e456557fa5" />
+<img width="1920" height="1200" alt="HI V10" src="https://github.com/user-attachments/assets/a92fcb8a-65cf-4bc7-8efc-78fc69b34064" />
 
 
 
