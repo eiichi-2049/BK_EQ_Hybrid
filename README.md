@@ -24,9 +24,7 @@
 
 在经历了一段时间的 Vibe "Learning" 之后，我决定做一款属于自己的插件。那么第一个插件要制作什么呢？想了很久，最后还是回到了最经典、也最常用的工具——**EQ**。
 
-现在向你介绍全新均衡器 — **BK_EQ_Hybrid**
-
-它的灵感，来自我最喜欢的**两架传奇硬件**：
+**BK_EQ_Hybrid**的灵感，来自我最喜欢的**两架传奇硬件**：
 
 | 风格 | 特点 |
 |:------:|:------:|
@@ -46,16 +44,9 @@
 
 ---
 
-##  支持我 / Support Me
-
-如果 BKEQ_Hybrid 恰好打动了你，或者你只是单纯喜欢这个奇怪的小 EQ，那么你也可以考虑请我喝一杯咖啡。
-
-
----
-
 ##  下载 / Download
 
-> 前往 [Releases](https://github.com/your-repo/releases) 页面下载VST3格式即可。
+前往 [Releases](https://github.com/your-repo/releases) 页面下载VST3格式即可。
 
 ---
 
@@ -67,6 +58,8 @@
 
 将.vst3文件放入“C:\Program Files\Common Files\VST3”，DAW会自动扫描并识别。
 
+---
+
 ##  协议 / License
 
 本项目仅供学习交流使用，请勿用于商业用途。
@@ -77,9 +70,13 @@
 
 Matisse Pro EB
 
-使用到的Github项目链接：
+使用到的Github项目链接：[  ]
 
+---
 
+##  支持我 / Support Me
+
+如果 BKEQ_Hybrid 恰好打动了你，或者你只是单纯喜欢这个奇怪的小 EQ，那么你可以考虑支持我。
 
 ---
   <br>
