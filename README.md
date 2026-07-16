@@ -15,8 +15,10 @@
 
 ##  界面DEMO / Interface DEMO
 
+<img width="1280" height="720" alt="equi" src="https://github.com/user-attachments/assets/85bb467b-affa-4c24-9230-d5273c823ad0" />
 
-持续推进中。
+
+**持续推进中。**
 
 ---
 
