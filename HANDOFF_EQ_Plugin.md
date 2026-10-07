@@ -154,6 +154,10 @@ v<0.33 → 状态「左侧工作」；v>0.67 → 「右侧工作」
 | 32 | 中文 README 被 PowerShell 弄乱码 | `Get-Content` 无编码在 936 页误读 UTF-8 | 用 write 工具整文件重写 UTF-8 |
 | 33 | XML/JS 为 CRLF | `edit` 多行匹配失败 | 单行锚点替换，或整文件重写 |
 | 34 | 工具洪水 / 子代理重复 spawn | 同内容多实例抢写同一文件 | 取消副本；**编译必须父代理跑**（子代理 bash 常为 ask） |
+| 35 | **MSBuild 报 `MSB6001 命令行开关无效` / CMake 报 `No CMAKE_C_COMPILER could be found`** | 环境块里**同时存在 `no_proxy` 与 `NO_PROXY`**（还有 `http_proxy`/`HTTP_PROXY` 等大小写变体）。Windows 环境变量名大小写不敏感，MSBuild 插入环境字典时撞键抛 `ArgumentException: 已添加项`，导致编译器探测失败。代理软件常同时写多种大小写 | `Remove-Item Env:no_proxy`；或只保留一种大小写形式。v2 的 `tools\build.ps1` 已内置自动清理 |
+| 36 | `.ps1` 存成无 BOM 的 UTF-8 被 PowerShell 5.1 误读 | PS 5.1 按 ANSI 解析无 BOM 文件，中文会破坏引号导致语法错误 | 所有含中文的 `.ps1` 必须存为 **UTF-8 with BOM**；注意某些编辑操作会**去掉 BOM**，改完要复查 |
+| 37 | **JUCE 9 工程不能放在含中文的路径下**（v2 重构时踩到） | CMake 把工程路径按系统 ANSI 代码页（936）写进 `Defs.txt` / `Info.txt` / `input_file_list`，而 JUCE 的 `juceaide` 按 UTF-8 读 → 解析失败抛 `Unhandled exception`。症状：`MSB8066`，`binarydata` / `header` / `rcfile` 三个自定义命令全失败 | 工程放纯 ASCII 路径；或用 `编码\BK_EQ_Hybrid_v2\tools\build-ascii.ps1` 在 ASCII 镜像里构建 |
+| 38 | MSVC 按代码页 936 解析无 BOM 的 UTF-8 源码 | 与 #36 同源，中文注释被误读，报大量离奇错误（如 `error C2447: "{": 缺少函数标题`、`C2059 语法错误:")"`） | C++ 源码存为 **UTF-8 with BOM**，或给 MSVC 加 `/utf-8` |
 
 ### 3.6 尚未解决
 
