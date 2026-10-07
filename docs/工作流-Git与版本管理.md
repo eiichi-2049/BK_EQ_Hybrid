@@ -21,6 +21,8 @@
 
 远端现状：`main` 上共 13 个提交，全部是 2026-05 ~ 2026-07 期间的 README 修改，**不含任何源码**。本仓库是第一批源码提交。
 
+> ⚠️ **本地与远端是两条无关历史。** 本地仓库是重新 `git init` 的，没有远端那 13 个提交的父链，因此首次推送**不能**用普通 `git push`（会被 `non-fast-forward` 拒绝）。见第 2 节。
+
 ---
 
 ## 2. 首次推送（需要你手动执行一次）
@@ -42,7 +44,28 @@ git branch --show-current     # 应为 main
 git push -u origin main
 ```
 
-**认证说明**（本机实测结论，省得你再踩一遍）：
+### 2.1 为什么首次推送要用 `--force-with-lease`
+
+本地是全新历史，远端已有 13 个提交，两者没有共同祖先。直接 `git push` 必然被拒。
+`--force-with-lease` 会在**确认远端仍是你已知的那个提交**后才覆盖，比 `--force` 安全——若远端被别人推过新东西，它会拒绝而不是静默丢弃。
+
+```powershell
+git push -u --force-with-lease origin main
+```
+
+**旧历史不会丢。** 推送前先把远端那个提交挂到备份分支上，GitHub 上就能完整翻到：
+
+```powershell
+# 远端 main 原指向 588d754（chore: Bold the ongoing progress statement in README）
+git branch backup/readme-history 588d754
+git push origin backup/readme-history
+```
+
+之后若不再需要，在 GitHub 上删掉该分支即可（提交仍可通过直接 URL 访问）。
+
+> 若远端 `main` 的提交号已经不是 `588d754`（说明仓库被别人动过），**先停下来核对**再推。
+
+### 2.2 认证说明（本机实测结论，省得你再踩一遍）
 
 | 方式 | 状态 | 说明 |
 |---|---|---|
@@ -57,7 +80,7 @@ git remote set-url origin https://github.com/eiichi-2049/BK_EQ_Hybrid.git
 git push -u origin main        # 会走 GCM 授权流程
 ```
 
-> 首次推送前请确认远端 `main` 上没有你还没拉取的提交（当前没有）。若远端领先，先 `git pull --rebase origin main`。
+> 用 HTTPS 时上面的 `--force-with-lease` 同样适用，只把 remote url 换掉即可。首次推送约 243 MB，视网络需要一两分钟。
 
 ---
 
@@ -123,6 +146,21 @@ chore(repo): 忽略 Binaries 与大体积 PSD
 
 **未启用 Git LFS**。若将来要入库 PSD，需先 `git lfs install` 并补 `.gitattributes` 规则。
 
+### 4.1 自动化把关
+
+| 设施 | 作用 |
+|---|---|
+| [`tools/check-repo-hygiene.ps1`](../tools/check-repo-hygiene.ps1) | 仓库体检：超大文件、构建产物/PSD 混入、残留冲突标记 |
+| [`.github/workflows/repo-check.yml`](../.github/workflows/repo-check.yml) | 每次 push / PR 在 GitHub 上跑同一份体检脚本，另校验 `VST3 Plugin/<版本>/` 命名 |
+
+本地提交前建议跑一次：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\check-repo-hygiene.ps1
+```
+
+判定阈值：单文件 ≥ 20 MB 告警，≥ 50 MB 直接失败。CI 与本地**共用同一份脚本**，避免规则漂移。
+
 ---
 
 ## 5. 构建与本地测试
@@ -142,11 +180,25 @@ powershell -ExecutionPolicy Bypass -File "编码\AnalogBlend\rebuild_vst3.ps1"
 ### 5.2 本机版本留存
 
 ```powershell
+# 推荐：自动完成「旧版留档 → 安装 → 存为上一个版本」
+powershell -ExecutionPolicy Bypass -File tools\install-vst3.ps1 -Label v1.0.1
+```
+
+脚本行为：校验源文件 → 把安装位旧文件按标签留档到 `LEGACY\BK_EQ_Hybrid_<标签>.vst3`
+→ 复制安装 → 再把当前版本存为 `LEGACY\BK_EQ_Hybrid.vst3`（始终代表「上一个版本」）。
+
+手动等价操作：
+
+```powershell
 Copy-Item 'E:\VST3\ReiVerb Work Shop\BK_EQ_Hybrid.vst3' `
           'E:\VST3\ReiVerb Work Shop\LEGACY\' -Force
 ```
 
 `LEGACY\` 仅作本机历史留存与对比试听，**不参与发行**。
+
+> **注意**：`E:\VST3\...` 在工作区之外。受限运行环境下写入会被拒绝并报
+> `Access to the path ... is denied`——那**不是** DAW 占用，是文件系统权限边界。
+> 该脚本请在你自己的终端里执行。
 
 ### 5.3 编码约定
 
@@ -241,3 +293,5 @@ commits: <短 sha 列表>
 1. **旧 `README.md` 字节级损坏** — UTF-8 内容被按 cp936 再编码过一次，`encode('gbk')` 也无法还原。已存档为 [`legacy/README.corrupt-2026-09-22.md`](../legacy/README.corrupt-2026-09-22.md)，**不要试图修**，需要内容请重写。
 2. **`UI预览.png` 不是真实渲染** — 合成图，缺 VU 表盘与 PARALLEL 面板，不可用作对齐基准。
 3. **`index.html` / `gui.js` / `gui.css` 已失效** — JS 引用了大量不存在的 DOM。保留原因：若 v2 走 WebView 前端路线，其 CSS 视觉与交互思路可复用；否则可删。
+4. **`E:\VST3\...` 在工作区外** — 受限环境下写入被拒（`Access ... denied`），与 DAW 占用是不同的原因，别混淆。安装类脚本请在自己终端跑。
+5. **`.ps1` 脚本需存为 UTF-8 with BOM** — PowerShell 5.1 会按 ANSI 读取无 BOM 的 UTF-8 文件，中文会把引号解析坏（本仓库的 `tools\*.ps1` 均已加 BOM）。

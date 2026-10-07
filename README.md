@@ -45,6 +45,12 @@ BK_EQ_Hybrid/
 │   ├── 制作思路-音频信号.md
 │   └── compose/spec/          ← 已交付功能的规格与验收记录
 │
+├── tools/
+│   ├── check-repo-hygiene.ps1 ← 仓库体检：超大文件 / 产物混入 / 冲突标记
+│   └── install-vst3.ps1       ← 安装到本机测试位并把旧版本留档到 LEGACY
+├── .github/workflows/
+│   └── repo-check.yml         ← CI：每次 push/PR 跑同一份体检脚本
+│
 ├── UI/                        ← 视觉设计源（PSD 本机保留，PNG 入库）
 ├── 发布素材/                   ← GitHub Hero 图与 LOGO
 └── legacy/                    ← 旧文档存档（含损坏文件与远端首页文档备份）
@@ -67,9 +73,11 @@ powershell -ExecutionPolicy Bypass -File "编码\AnalogBlend\rebuild_vst3.ps1"
 # 2) v1 产物会安装到
 #    E:\VST3\ReiVerb Work Shop\BK_EQ_Hybrid.vst3
 
-# 3) 本机测试副本（保留历史版本，手动执行）
-Copy-Item 'E:\VST3\ReiVerb Work Shop\BK_EQ_Hybrid.vst3' `
-          'E:\VST3\ReiVerb Work Shop\LEGACY\' -Force
+# 3) 安装到本机测试位，并自动把旧版本留档到 LEGACY\
+powershell -ExecutionPolicy Bypass -File "tools\install-vst3.ps1" -Label v1.0.1
+
+# 4) 提交前跑一次仓库体检（与 CI 共用同一份脚本）
+powershell -ExecutionPolicy Bypass -File "tools\check-repo-hygiene.ps1"
 ```
 
 构建与提交的完整流程见 [docs/工作流-Git与版本管理.md](docs/工作流-Git与版本管理.md)。

@@ -1,0 +1,44 @@
+name: repo-check
+
+# 仓库体检：防止大文件与构建产物被误提交。
+# 规则与本地 tools/check-repo-hygiene.ps1 完全一致（同一份脚本，避免漂移）。
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hygiene:
+    name: 仓库体检
+    runs-on: windows-latest
+    steps:
+      - name: 检出（完整历史，便于检查大对象）
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 运行体检脚本
+        shell: pwsh
+        run: ./tools/check-repo-hygiene.ps1
+
+      - name: 校验 VST3 版本目录命名规范
+        shell: pwsh
+        run: |
+          # 发行约定：VST3 Plugin/<语义化版本>/，如 1.0.1
+          $bad = @()
+          if (Test-Path 'VST3 Plugin') {
+            Get-ChildItem 'VST3 Plugin' -Directory | ForEach-Object {
+              if ($_.Name -notmatch '^\d+\.\d+(\.\d+)?$') { $bad += $_.Name }
+            }
+          }
+          if ($bad.Count) {
+            Write-Host "::error::VST3 Plugin/ 下存在不符合语义化版本的目录: $($bad -join ', ')"
+            exit 1
+          }
+          Write-Host 'VST3 版本目录命名 OK'
