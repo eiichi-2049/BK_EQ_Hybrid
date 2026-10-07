@@ -1,0 +1,72 @@
+
+<p align="center">
+  <h1 align="center">🎛️ BKEQ_Hybrid</h1>
+  <p align="center"><i>让声音更有存在感</i></p>
+</p>
+
+---
+
+## 💡 缘起 / Inspiration
+
+在经历了一段时间的 Vibe Coding 之后，我决定认真做一款属于自己的插件。那么第一个插件要制作什么呢？想了很久，最后还是回到了最经典、也最常用的工具——**EQ**。
+
+> I want to introduce a brand new EQ — BKEQ_Hybrid！
+
+BKEQ_Hybrid 的灵感，来自我最喜欢的**两类硬件 EQ**：
+
+| 风格 | 特点 |
+|------|------|
+| 🧈 **Pultec EQ** | 温暖、厚实、充满音乐性 |
+| 🎯 **SSL 4000 EQ** | 直接、干净、带"推感"的总线塑形能力 |
+
+我一直很喜欢老硬件身上的一种矛盾感：**它们并不"绝对精准"，但却能让声音变得好听。**
+
+---
+
+## 🎯 设计理念 / Concept
+
+BKEQ_Hybrid 并不想成为"最透明"的 EQ。相反，它更像是一种：
+
+> **"让声音更有存在感"** 的工具。
+
+---
+
+## ✨ 特性 / Features
+
+- 🔀 **双风格混搭** — 提供两种不同风格的混搭选择，并支持 **SOLO 模式**，可单纯当作 Pultec 或 SSL EQ 类模拟使用
+- 🖥️ **直观可视化 UI** — 操作界面直观，所见即所得
+- 📦 **开箱即用** — VST3 格式，无需繁琐安装
+- 🆓 **终身免费** — 不绑定 iLok，永久免费使用
+
+---
+
+## ☕ 支持我 / Support Me
+
+如果 BKEQ_Hybrid 恰好打动了你，或者你只是单纯喜欢这个奇怪的小 EQ，那么你也可以考虑请我喝一杯咖啡 ☕
+
+你的支持会帮助我继续：
+
+- 🔬 研究硬件电路
+- 🐛 修更多奇怪的 Bug
+- 🧪 做更多"可能没人需要但我很想做"的插件
+
+---
+
+## 📥 下载 / Download
+
+> 前往 [Releases](https://github.com/your-repo/releases) 页面下载最新版本。
+
+---
+
+## 📄 协议 / License
+
+本项目仅供学习交流使用，请勿用于商业用途。
+
+---
+
+<p align="center">
+  <br>
+  <i>希望这个小设备可以进入你的 workflow，在你的音乐中发挥作用~</i><br><br>
+  <b>Thanks for downloading.</b><br>
+  <b>Happy life & Happy mixing~ 🎶</b>
+</p>
