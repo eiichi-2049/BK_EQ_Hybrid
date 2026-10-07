@@ -1,0 +1,176 @@
+/* BK_EQ_Hybrid — PARALLEL 推拉可发现性 */
+:root {
+  --bg: #c5b88a; --panel: #d4c89a; --ink: #1a1812;
+  --c-normal: #e85d75;
+  --c-push: #3da5ff;
+  --c-pull: #b44dff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #2a2824; color: var(--ink); min-height: 100vh;
+}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+header h1 { color: #e8e0c8; font-size: 20px; }
+header .sub { color: #a89f88; font-size: 13px; margin: 6px 0 12px; }
+
+.checks { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.chk {
+  font-size: 12px; padding: 6px 12px; border-radius: 20px;
+  background: #3a3630; color: #8a8478; border: 1px solid #555;
+}
+.chk.ok { background: #1e3a28; color: #7dcea0; border-color: #2d5a3a; }
+
+.plugin {
+  display: grid; grid-template-columns: 1fr 300px 1fr; gap: 10px;
+  background: var(--bg); border-radius: 8px; padding: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.45); border: 1px solid #8a7f5a;
+}
+.panel {
+  background: var(--panel); border-radius: 6px; padding: 12px;
+  border: 1px solid #a89b6e; box-shadow: inset 0 2px 6px rgba(0,0,0,.12);
+}
+.panel h2 { font-size: 11px; letter-spacing: 3px; text-align: center; color: #5a5240; margin-bottom: 10px; }
+.panel.center { text-align: center; }
+.row { display: flex; justify-content: space-around; margin-bottom: 8px; }
+
+.knob {
+  width: 72px; height: 72px; position: relative; cursor: grab;
+  user-select: none; touch-action: none;
+}
+.knob.big { width: 88px; height: 88px; }
+.knob.sm { width: 56px; height: 56px; }
+.knob.parallel { width: 130px; height: 130px; }
+
+.knob::before {
+  content: ""; position: absolute; left: -8px; right: -8px; top: 4px; bottom: -10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 60%, rgba(0,0,0,.35), transparent 70%);
+  z-index: 0; pointer-events: none;
+}
+.knob::after {
+  content: ""; position: absolute; inset: 4px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #6a6a66, #2a2a28 70%), linear-gradient(145deg, #555, #222);
+  box-shadow: 0 2px 4px rgba(0,0,0,.5), inset 0 1px 1px rgba(255,255,255,.25);
+  z-index: 1; border: 1px solid #1a1a1a;
+}
+.knob.parallel::after { inset: 10px; }
+
+.knob .pointer {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  transform: rotate(0deg); transition: transform .05s linear;
+}
+.knob .pointer::before {
+  content: ""; position: absolute; left: 50%; top: 12%;
+  width: 3px; height: 36%; margin-left: -1.5px;
+  background: linear-gradient(#f5f0d8, #c9a227); border-radius: 2px;
+}
+.knob.sm .pointer::before { width: 2px; height: 32%; }
+.knob.parallel .pointer::before {
+  width: 4px; height: 34%; background: linear-gradient(#fff8e0, #d4a017);
+}
+.knob .label {
+  position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%);
+  font-size: 9px; color: #5a5240; white-space: nowrap; z-index: 4;
+}
+.knob .val {
+  position: absolute; left: 50%; top: -12px; transform: translateX(-50%);
+  font-size: 9px; color: #3a3428; white-space: nowrap; z-index: 4;
+}
+
+/* ① 可发现性：状态色环 */
+.mode-ring {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 50%;
+  border: 3px solid var(--c-normal);
+  box-shadow: 0 0 12px rgba(232,93,117,.35);
+  transition: border-color .2s, box-shadow .2s;
+}
+.mode-ring[data-mode="push"] {
+  border-color: var(--c-push);
+  box-shadow: 0 0 12px rgba(61,165,255,.4);
+}
+.mode-ring[data-mode="pull"] {
+  border-color: var(--c-pull);
+  box-shadow: 0 0 12px rgba(180,77,255,.4);
+}
+.mode-badge {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  padding: 4px 10px; border-radius: 3px;
+  background: var(--c-normal); color: #fff;
+}
+.mode-badge.push { background: var(--c-push); }
+.mode-badge.pull { background: var(--c-pull); }
+
+.status {
+  margin-top: 10px; font-size: 13px; font-weight: 600;
+  padding: 4px 12px; background: #1a1812; color: #c9a227;
+  border-radius: 3px; letter-spacing: 2px; display: inline-block;
+}
+.mixval { margin-top: 6px; font-family: ui-monospace, monospace; font-size: 14px; }
+.weights { font-size: 12px; color: #5a5240; margin-top: 2px; }
+
+.controls { margin-top: 12px; display: flex; gap: 10px; justify-content: center; align-items: center; }
+.lockbox { font-size: 12px; color: #3a3428; cursor: pointer; user-select: none; }
+.controls button {
+  font-size: 12px; padding: 4px 10px; cursor: pointer;
+  border: 1px solid #8a7f5a; background: #e8dfb8; border-radius: 3px;
+}
+.hint {
+  margin-top: 10px; font-size: 11px; color: #5a5240; text-align: left;
+  max-width: 260px; margin-left: auto; margin-right: auto; line-height: 1.5;
+}
+
+.meter {
+  width: 110px; height: 56px; margin: 0 auto 10px;
+  background: linear-gradient(#e8dfb8, #cfc39a);
+  border-radius: 8px 8px 4px 4px; border: 2px solid #8a7f5a; position: relative;
+}
+.needle {
+  position: absolute; left: 50%; bottom: 6px; width: 2px; height: 40px;
+  background: #2a2418; transform-origin: bottom center; transform: rotate(-25deg);
+  transition: transform .15s ease-out;
+}
+
+.ssl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; justify-items: center; }
+.ssl-grid .cell { text-align: center; position: relative; }
+.ssl-grid .cell span { display: block; font-size: 9px; color: #5a5240; margin-top: 14px; }
+.ring {
+  position: absolute; left: 50%; top: 0; width: 68px; height: 68px; margin-left: -34px;
+  border-radius: 50%; border: 3px solid #8a7f5a; pointer-events: none;
+}
+
+.log {
+  margin-top: 12px; font-family: ui-monospace, monospace; font-size: 11px;
+  color: #8a8478; max-height: 90px; overflow: auto; white-space: pre-wrap;
+}
+
+/* ① 首次启动 Toast */
+.toast {
+  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(420px, 92vw);
+  background: #1e1c18; color: #e8e0c8; padding: 20px 22px;
+  border-radius: 10px; border: 1px solid #555;
+  box-shadow: 0 12px 40px rgba(0,0,0,.55);
+  z-index: 100;
+}
+.toast.hidden { display: none; }
+.toast strong { font-size: 16px; }
+.toast p { margin: 10px 0; font-size: 13px; line-height: 1.5; }
+.toast ul { margin: 8px 0 12px 4px; font-size: 13px; line-height: 1.8; list-style: none; }
+.toast .sw {
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px;
+}
+.toast .sw.normal { background: var(--c-normal); }
+.toast .sw.push { background: var(--c-push); }
+.toast .sw.pull { background: var(--c-pull); }
+.toast .muted { color: #8a8478; font-size: 12px; }
+.toast button {
+  margin-top: 8px; padding: 8px 18px; cursor: pointer;
+  border: 0; border-radius: 4px; background: var(--c-normal); color: #fff; font-weight: 600;
+}
+
+.knob.dragging { cursor: grabbing; }

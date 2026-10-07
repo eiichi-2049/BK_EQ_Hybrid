@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ProjectSettings>
+  <Name value="BK_EQ_Hybrid" type="TEXT" description="Project Name"/>
+  <Version value="0.1.0" type="TEXT" description="Project version"/>
+  <Description value="BK_EQ_Hybrid — Pultec + SSL parallel blend EQ" type="TEXT" description="Project description"/>
+  <BundleIdentifier value="com.reiverb.bkeqhybrid" type="TEXT" description="Bundle Identifier(eg.com.myCompany.bundle)"/>
+  <PluginCode value="Abln" type="TEXT" description="a 4 character ID code(eg. 'Abcd')"/>
+  <EmbedAudioFiles value="Yes" type="LIST" description="Embed Audio files in plugin"
+                   options="Yes&#10;No"/>
+  <VST3Support value="Yes" type="LIST" description="If enabled, the exported plugins will use the VST3 SDK standard instead of the VST 2.x SDK"
+               options="Yes&#10;No"/>
+  <VST3Category value="EQ" type="LIST" description="The category the VST3 plugin will appear in"
+                options="Analyzer&#10;Delay&#10;Distortion&#10;Dynamics&#10;EQ&#10;Filter&#10;Generator&#10;Mastering&#10;Modulation&#10;Pitch Shift&#10;Restoration&#10;Reverb&#10;Spatial&#10;Surround&#10;Tools&#10;Drum&#10;Synth&#10;Sampler"/>
+  <AdditionalDspLibraries value="" type="TEXT" description="comma separated list of all static dsp factory classes"/>
+  <WindowsStaticLibFolder value="" type="TEXT" description="Windows static library folder"/>
+  <OSXStaticLibs value="" type="TEXT" description="Additional static libs (OSX only)"/>
+  <ExtraDefinitionsWindows value="" type="TEXT" description="Extra preprocessor definitions for Windows"/>
+  <ExtraDefinitionsOSX value="" type="TEXT" description="Extra preprocessor definitions for OSX"/>
+  <ExtraDefinitionsIOS value="" type="TEXT" description="Extra preprocessor definitions for IOS"/>
+  <AppGroupID value="" type="TEXT" description="App Group ID (use this for shared resources on iOS"/>
+</ProjectSettings>
+

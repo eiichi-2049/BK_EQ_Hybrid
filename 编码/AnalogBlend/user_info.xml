@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UserSettings>
+  <Company value="ReiVerb Work Shop" type="TEXT" description="Company Name"/>
+  <CompanyCode value="Rvws" type="TEXT" description="Company Code (4 characters, first must be uppercase)"/>
+  <CompanyCopyright value="(c)2026, ReiVerb Work Shop" type="TEXT" description="Company Copyright"/>
+  <CompanyURL value="" type="TEXT" description="Company Website"/>
+  <TeamDevelopmentID value="" type="TEXT" description="Apple Distribution ID"/>
+</UserSettings>
+
+

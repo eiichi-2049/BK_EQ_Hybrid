@@ -1,0 +1,75 @@
+<!-- AI生成 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BK_EQ_Hybrid · GUI 预览</title>
+<link rel="stylesheet" href="gui.css" />
+</head>
+<body>
+<p data-aigc-mark="1" style="margin:0 0 8px;font-size:10px;line-height:1.3;color:#6b6560;font-weight:400;">AI生成</p>
+
+<div class="wrap">
+  <header>
+    <h1>BK_EQ_Hybrid GUI 预览</h1>
+    <p class="sub">坐标对齐 UI 截图 · 0=左/Pultec · 1=右/SSL · underlay 底图 · 拖角缩放</p>
+  </header>
+
+  <div class="plugin" id="plugin">
+    <!-- 左 Pultec -->
+    <section class="panel left">
+      <h2>PULTEC</h2>
+      <div class="row">
+        <div class="knob big" data-name="BOOST" data-min="0" data-max="24" data-val="0"></div>
+        <div class="knob big" data-name="BD.WITH" data-min="0" data-max="1" data-val="0.5"></div>
+        <div class="knob sm" data-name="3/5/10/16k" data-min="0" data-max="3" data-val="0" data-steps="4"></div>
+      </div>
+      <div class="row">
+        <div class="knob big" data-name="ATTEN." data-min="0" data-max="24" data-val="0"></div>
+        <div class="knob big" data-name="ATTEN.SEL" data-min="0" data-max="3" data-val="0" data-steps="4"></div>
+      </div>
+      <div class="row">
+        <div class="knob big" data-name="ATTEN." data-min="0" data-max="24" data-val="0"></div>
+        <div class="knob big" data-name="BOOST" data-min="0" data-max="24" data-val="0"></div>
+        <div class="knob sm" data-name="20/30/60/100" data-min="0" data-max="3" data-val="0" data-steps="4"></div>
+      </div>
+    </section>
+
+    <!-- 中 -->
+    <section class="panel center">
+      <h2>HYBRID</h2>
+      <div class="meter"><div class="needle" id="needle"></div></div>
+      <div class="parallel-wrap">
+        <div class="knob parallel" id="parallel" data-name="PARALLEL" data-min="0" data-max="1" data-val="0.5"></div>
+        <div class="status" id="status">混合工作</div>
+        <div class="weights" id="weights">P 50% · S 50%</div>
+        <div class="hint">0=左/Pultec · 1=右/SSL · 拖拽调比例</div>
+      </div>
+    </section>
+
+    <!-- 右 SSL -->
+    <section class="panel right">
+      <h2>SSL</h2>
+      <div class="ssl-grid">
+        <div class="cell"><div class="ring"></div><div class="knob red" data-name="dB" data-min="-24" data-max="24" data-val="0"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob red" data-name="HZ" data-min="1500" data-max="16000" data-val="8000"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob green" data-name="HMF dB" data-min="-24" data-max="24" data-val="0"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob green" data-name="HMF Q" data-min="0.1" data-max="5" data-val="1"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob green" data-name="HMF Hz" data-min="600" data-max="8000" data-val="2000"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob blue" data-name="LMF dB" data-min="-24" data-max="24" data-val="0"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob blue" data-name="LMF Q" data-min="0.1" data-max="5" data-val="1"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob blue" data-name="LMF Hz" data-min="200" data-max="3000" data-val="800"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob brown" data-name="LF dB" data-min="-24" data-max="24" data-val="0"></div></div>
+        <div class="cell"><div class="ring"></div><div class="knob brown" data-name="LF Hz" data-min="30" data-max="450" data-val="100"></div></div>
+      </div>
+    </section>
+
+    <div class="zoom-grip" id="zoomGrip" title="拖动缩放">◢</div>
+  </div>
+
+  <div class="log" id="log"></div>
+</div>
+<script src="gui.js"></script>
+</body>
+</html>

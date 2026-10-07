@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Processor Type="SynthChain" ID="Analog Blend" Bypassed="0" Gain="1" Balance="0"
+           VoiceLimit="128" KillFadeTime="20" IconColour="0" packageName=""
+           currentView="-1" BuildVersion="650">
+  <ChildProcessors>
+    <Processor Type="MidiProcessorChain" ID="Midi Processor" Bypassed="0">
+      <ChildProcessors>
+        <Processor Type="ScriptProcessor" ID="Interface" Bypassed="0">
+          <ChildProcessors/>
+          <Content/>
+        </Processor>
+      </ChildProcessors>
+    </Processor>
+    <Processor Type="ModulatorChain" ID="GainModulation" Bypassed="0" Intensity="1">
+      <ChildProcessors/>
+    </Processor>
+    <Processor Type="ModulatorChain" ID="PitchModulation" Bypassed="1" Intensity="0">
+      <ChildProcessors/>
+    </Processor>
+    <Processor Type="EffectChain" ID="FX" Bypassed="0">
+      <ChildProcessors>
+        <Processor Type="RouteFX" ID="To SSL" Bypassed="0">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="2" Channel1="1" Send1="3" Channel2="2" Send2="-1" Channel3="3" Send3="-1" Channel4="4" Send4="-1" Channel5="5" Send5="-1"/>
+        </Processor>
+        <Processor Type="RouteFX" ID="To Bleed" Bypassed="0">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="4" Channel1="1" Send1="5" Channel2="2" Send2="-1" Channel3="3" Send3="-1" Channel4="4" Send4="-1" Channel5="5" Send5="-1"/>
+        </Processor>
+        <Processor Type="CurveEq" ID="Pultec EQ" Bypassed="0"
+                   NumFilters="4" FFTEnabled="0"
+                   Band0="0" Band1="80" Band2="0.7" Band3="1" Band4="1"
+                   Band5="0" Band6="80" Band7="0.7" Band8="1" Band9="1"
+                   Band10="0" Band11="8000" Band12="1.5" Band13="1" Band14="0"
+                   Band15="0" Band16="12000" Band17="0.7" Band18="1" Band19="2">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="-1" Channel1="1" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+        <Processor Type="ShapeFX" ID="Pultec Sat" Bypassed="0"
+                   BiasLeft="0.22" BiasRight="0.22" HighPass="20" LowPass="20000"
+                   Mode="3" Oversampling="4" Gain="9" Reduce="0" Autogain="1"
+                   LimitInput="0" Drive="0" Mix="1" BypassFilters="0">
+          <ChildProcessors>
+            <Processor Type="ModulatorChain" ID="Drive Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+          </ChildProcessors>
+          <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="-1" Channel1="1" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+        <Processor Type="SimpleGain" ID="Pultec Wet" Bypassed="0" Gain="-6.0206"
+                   Delay="0" Width="100" Balance="0" InvertPolarity="0">
+          <ChildProcessors>
+            <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Delay Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Width Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Pan Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+          </ChildProcessors>
+          <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="-1" Channel1="1" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+        <Processor Type="CurveEq" ID="SSL EQ" Bypassed="0"
+                   NumFilters="4" FFTEnabled="0"
+                   Band0="0" Band1="8000" Band2="0.7" Band3="1" Band4="2"
+                   Band5="0" Band6="3500" Band7="1.2" Band8="1" Band9="0"
+                   Band10="0" Band11="800" Band12="1" Band13="1" Band14="0"
+                   Band15="0" Band16="120" Band17="0.7" Band18="1" Band19="1">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="6" Channel0="2" Send0="-1" Channel1="3" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+        <Processor Type="ShapeFX" ID="SSL Sat" Bypassed="0"
+                   BiasLeft="0" BiasRight="0" HighPass="20" LowPass="20000"
+                   Mode="2" Oversampling="4" Gain="5" Reduce="0" Autogain="1"
+                   LimitInput="0" Drive="0" Mix="1" BypassFilters="0">
+          <ChildProcessors>
+            <Processor Type="ModulatorChain" ID="Drive Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+          </ChildProcessors>
+          <RoutingMatrix NumSourceChannels="6" Channel0="2" Send0="-1" Channel1="3" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+        <Processor Type="SimpleGain" ID="SSL Wet" Bypassed="0" Gain="-6.0206"
+                   Delay="0" Width="100" Balance="0" InvertPolarity="0">
+          <ChildProcessors>
+            <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Delay Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Width Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Pan Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+          </ChildProcessors>
+          <RoutingMatrix NumSourceChannels="6" Channel0="2" Send0="-1" Channel1="3" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+        <Processor Type="ShapeFX" ID="Bleed Sat" Bypassed="0"
+                   BiasLeft="0.1" BiasRight="0.1" HighPass="20" LowPass="20000"
+                   Mode="3" Oversampling="4" Gain="4" Reduce="0" Autogain="1"
+                   LimitInput="0" Drive="0" Mix="1" BypassFilters="0">
+          <ChildProcessors>
+            <Processor Type="ModulatorChain" ID="Drive Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+          </ChildProcessors>
+          <RoutingMatrix NumSourceChannels="6" Channel0="4" Send0="-1" Channel1="5" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+        <Processor Type="SimpleGain" ID="Bleed Level" Bypassed="0" Gain="-24"
+                   Delay="0" Width="100" Balance="0" InvertPolarity="0">
+          <ChildProcessors>
+            <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Delay Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Width Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Pan Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+          </ChildProcessors>
+          <RoutingMatrix NumSourceChannels="6" Channel0="4" Send0="-1" Channel1="5" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+        <Processor Type="RouteFX" ID="Mix SSL" Bypassed="0">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="-1" Channel1="1" Send1="-1" Channel2="2" Send2="0" Channel3="3" Send3="1" Channel4="4" Send4="-1" Channel5="5" Send5="-1"/>
+        </Processor>
+        <Processor Type="RouteFX" ID="Mix Bleed" Bypassed="0">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="-1" Channel1="1" Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1" Channel4="4" Send4="0" Channel5="5" Send5="1"/>
+        </Processor>
+        <Processor Type="SimpleGain" ID="Output Bus" Bypassed="0" Gain="-6"
+                   Delay="0" Width="100" Balance="0" InvertPolarity="0">
+          <ChildProcessors>
+            <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Delay Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Width Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+            <Processor Type="ModulatorChain" ID="Pan Modulation" Bypassed="0" Intensity="1">
+              <ChildProcessors/>
+            </Processor>
+          </ChildProcessors>
+          <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="-1" Channel1="1" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+        </Processor>
+      </ChildProcessors>
+      <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="-1" Channel1="1" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+    </Processor>
+  </ChildProcessors>
+  <RoutingMatrix NumSourceChannels="6" Channel0="0" Send0="-1" Channel1="1" Send1="-1" Channel2="-1" Send2="-1" Channel3="-1" Send3="-1" Channel4="-1" Send4="-1" Channel5="-1" Send5="-1"/>
+  <macro_controls>
+    <macro name="Macro 1" value="0" midi_cc="-1"/>
+    <macro name="Macro 2" value="0" midi_cc="-1"/>
+    <macro name="Macro 3" value="0" midi_cc="-1"/>
+    <macro name="Macro 4" value="0" midi_cc="-1"/>
+    <macro name="Macro 5" value="0" midi_cc="-1"/>
+    <macro name="Macro 6" value="0" midi_cc="-1"/>
+    <macro name="Macro 7" value="0" midi_cc="-1"/>
+    <macro name="Macro 8" value="0" midi_cc="-1"/>
+  </macro_controls>
+  <MidiAutomation/>
+</Processor>
+
